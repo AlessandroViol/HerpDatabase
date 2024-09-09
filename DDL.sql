@@ -26,7 +26,7 @@ CREATE TABLE Serpente (
   Nome VARCHAR(70) NOT NULL,
   Sesso CHAR(1) NOT NULL,
   DataNascita DATE NOT NULL,
-  Stato ENUM (
+  Stato ENUM(
     'In vendita',
     'Venduto',
     'In adozione',
@@ -111,8 +111,8 @@ CREATE TABLE Cibo (
 CREATE TABLE Pasti (
   Data DATE NOT NULL,
   IDSerpente INT UNSIGNED NOT NULL,
-  Risultato ENUM ('Consumato', 'Rifiutato', 'Rigurgitato') DEFAULT 'Consumato' NOT NULL,
-  Tipo ENUM ('Scongelato', 'Pre-ucciso', 'Vivo') DEFAULT 'Scongelato' NOT NULL,
+  Risultato ENUM('Consumato', 'Rifiutato', 'Rigurgitato') DEFAULT 'Consumato' NOT NULL,
+  Tipo ENUM('Scongelato', 'Pre-ucciso', 'Vivo') DEFAULT 'Scongelato' NOT NULL,
   NomeCibo VARCHAR(60) NOT NULL,
   PRIMARY KEY (Data, IDSerpente),
   CONSTRAINT FKPasti_IDSerpente FOREIGN KEY (IDSerpente) REFERENCES Serpente (ID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -124,7 +124,7 @@ CREATE TABLE Pasti (
 CREATE TABLE Progenie (
   Data DATE NOT NULL,
   IDSerpente INT UNSIGNED NOT NULL,
-  Tipo ENUM ('Covata', 'Nidiata') DEFAULT 'Covata' NOT NULL,
+  Tipo ENUM('Covata', 'Nidiata') DEFAULT 'Covata' NOT NULL,
   Totale TINYINT UNSIGNED NOT NULL,
   Morti TINYINT UNSIGNED NOT NULL,
   Slugs TINYINT UNSIGNED DEFAULT 0,
@@ -159,7 +159,7 @@ CREATE TABLE Morph (
 CREATE TABLE Allele (
   Nome VARCHAR(100) NOT NULL,
   Locus VARCHAR(100) NOT NULL,
-  Tipo ENUM ('Dominante', 'Codominante', 'Recessivo') NOT NULL,
+  Tipo ENUM('Dominante', 'Codominante', 'Recessivo') NOT NULL,
   PRIMARY KEY (Nome, Locus)
 );
 
@@ -167,10 +167,10 @@ CREATE TABLE Allele (
 -- Terrario (ID, Riscaldatore, BassaTemp, AltaTemp, Tipologia, Acquatico, Arrampicabile, Scavabile, Umidita)
 CREATE TABLE Terrario (
   ID INT UNSIGNED AUTO_INCREMENT,
-  Riscaldatore ENUM ('Tappetino', 'Lampada', 'Entrambe') DEFAULT 'Tappetino' NOT NULL,
+  Riscaldatore ENUM('Tappetino', 'Lampada', 'Entrambe') DEFAULT 'Tappetino' NOT NULL,
   AltaTemp TINYINT NOT NULL,
   BassaTemp TINYINT NOT NULL,
-  Tipologia ENUM ('Opaco', 'Trasparente', 'Entrambi') DEFAULT 'Entrambi' NOT NULL,
+  Tipologia ENUM('Opaco', 'Trasparente', 'Entrambi') DEFAULT 'Entrambi' NOT NULL,
   Acquatico BOOL DEFAULT FALSE NOT NULL,
   Arrampicabile BOOL DEFAULT FALSE NOT NULL,
   Scavabile BOOL DEFAULT FALSE NOT NULL,
@@ -185,15 +185,15 @@ CREATE TABLE Specie (
   NomeComune VARCHAR(100) NOT NULL UNIQUE,
   EtaMax TINYINT UNSIGNED NOT NULL,
   Aspettativa TINYINT UNSIGNED NOT NULL,
-  Alimentazione ENUM (
+  Alimentazione ENUM(
     'Roditori',
     'Piccoli Mammiferi',
     'Pesci',
     'Uova',
     'Vermi'
   ) DEFAULT 'Roditori' NOT NULL,
-  Attivita ENUM ('Diurno', 'Notturno', 'Crepuscolare') DEFAULT 'Crepuscolare' NOT NULL,
-  Difesa ENUM (
+  Attivita ENUM('Diurno', 'Notturno', 'Crepuscolare') DEFAULT 'Crepuscolare' NOT NULL,
+  Difesa ENUM(
     'Morso',
     'Veleno',
     'Tanatosi',
@@ -201,8 +201,8 @@ CREATE TABLE Specie (
     'Musk',
     'Avviluppamento'
   ) DEFAULT 'Morso' NOT NULL,
-  Temperamento ENUM ('Schivo', 'Aggressivo', 'Calmo', 'Attivo') DEFAULT 'Calmo' NOT NULL,
-  Difficolta ENUM ('Principiante', 'Intermedio', 'Esperto') DEFAULT 'Intermedio' NOT NULL,
+  Temperamento ENUM('Schivo', 'Aggressivo', 'Calmo', 'Attivo') DEFAULT 'Calmo' NOT NULL,
+  Difficolta ENUM('Principiante', 'Intermedio', 'Esperto') DEFAULT 'Intermedio' NOT NULL,
   Coabitazione BOOL DEFAULT FALSE NOT NULL,
   TempoIncubaz TINYINT UNSIGNED DEFAULT NULL,
   ProgenieMax TINYINT UNSIGNED NOT NULL,
@@ -218,7 +218,7 @@ CREATE TABLE Specie (
 CREATE TABLE Brumazione (
   NomeSpecie VARCHAR(100),
   SettPreBrum TINYINT UNSIGNED NOT NULL,
-  MeseInizio ENUM (
+  MeseInizio ENUM(
     'Gen',
     'Feb',
     'Mar',
@@ -232,7 +232,7 @@ CREATE TABLE Brumazione (
     'Nov',
     'Dic'
   ) NOT NULL,
-  MeseFine ENUM (
+  MeseFine ENUM(
     'Gen',
     'Feb',
     'Mar',
@@ -262,7 +262,7 @@ CREATE TABLE Substrato (
 
 -- Eta (FaseEta, NomeSpecie, Lunghezza, Peso, EtaLimite, IDTerrario, DimMinTerrario, DimConsTerrario, DimTana)
 CREATE TABLE Eta (
-  FaseEta ENUM ('Baby', 'Sub-adulto', 'Adulto') NOT NULL,
+  FaseEta ENUM('Baby', 'Sub-adulto', 'Adulto') NOT NULL,
   NomeSpecie VARCHAR(100) NOT NULL,
   Lunghezza TINYINT UNSIGNED NOT NULL,
   Peso TINYINT UNSIGNED NOT NULL,
