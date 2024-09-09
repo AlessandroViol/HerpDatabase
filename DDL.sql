@@ -8,7 +8,6 @@ CREATE TABLE Allevamento (
   PRIMARY KEY (IVA)
 );
 
-
 -- Cliente (CF, Nome, Cognome, Email, Telefono)
 CREATE TABLE Cliente (
   CF CHAR(16),
@@ -18,7 +17,6 @@ CREATE TABLE Cliente (
   Telefono BIGINT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (CF)
 );
-
 
 -- Serpente (ID, Nome, Sesso, DataNascita, Stato, Cites, Prezzo, Foto, IVAAllevamento, CFCliente, DataAcquisto, NomeSpecie)
 CREATE TABLE Serpente (
@@ -48,7 +46,6 @@ CREATE TABLE Serpente (
   CONSTRAINT FKSerpente_NomeSpecie FOREIGN KEY (NomeSpecie) REFERENCES Specie (NomeScientifico) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- BrumazioneIndotta (DataInizioPre, IDSerpente, DataInizio, DataFine, DataFinePost)
 CREATE TABLE BrumazioneIndotta (
   DataInizioPre DATE NOT NULL,
@@ -60,7 +57,6 @@ CREATE TABLE BrumazioneIndotta (
   CONSTRAINT FKBrumazioneIndotta_IDSerpente FOREIGN KEY (IDSerpente) REFERENCES Serpente (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- Clinica (IVA, Nome, Indirizzo)
 CREATE TABLE Clinica (
   IVA BIGINT(11) UNSIGNED,
@@ -68,7 +64,6 @@ CREATE TABLE Clinica (
   Indirizzo VARCHAR(200) NOT NULL,
   PRIMARY KEY (IVA)
 );
-
 
 -- Telefono (Numero, IVAAllevamento, IVAClinica)
 CREATE TABLE Telefono (
@@ -79,7 +74,6 @@ CREATE TABLE Telefono (
   CONSTRAINT FKTelefono_IVAAllevamento FOREIGN KEY (IVAAllevamento) REFERENCES Allevamento (IVA) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FKTelefono_IVAClinica FOREIGN KEY (IVAClinica) REFERENCES Clinica (IVA) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 -- Visita (Numero, Dimensione, Peso, Prescrizione, DurataPrescrizione, Motivazione, Data, IDSerpente, IVAClinica)
 CREATE TABLE Visita (
@@ -97,7 +91,6 @@ CREATE TABLE Visita (
   CONSTRAINT FKVisita_IVAClinica FOREIGN KEY (IVAClinica) REFERENCES Clinica (IVA) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
-
 -- Cibo (Nome, Dimensione, Peso)
 CREATE TABLE Cibo (
   Nome VARCHAR(60),
@@ -105,7 +98,6 @@ CREATE TABLE Cibo (
   Peso TINYINT UNSIGNED NOT NULL,
   PRIMARY KEY (Nome)
 );
-
 
 -- Pasti (Data, IDSerpente, Risultato, NomeCibo, Tipo)
 CREATE TABLE Pasti (
@@ -119,7 +111,6 @@ CREATE TABLE Pasti (
   CONSTRAINT FKPasti_NomeCibo FOREIGN KEY (NomeCibo) REFERENCES Cibo (Nome) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-
 -- Progenie (Data, IDSerpente, tipo, totale, morti, slugs)
 CREATE TABLE Progenie (
   Data DATE NOT NULL,
@@ -131,7 +122,6 @@ CREATE TABLE Progenie (
   PRIMARY KEY (Data, IDSerpente),
   CONSTRAINT FKProgenie_IDSerpente FOREIGN KEY (IDSerpente) REFERENCES Serpente (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 -- Incubazione (DataParto, IDSerpente, DataInizio, DataFine, Temperatura, Umidita)
 CREATE TABLE Incubazione (
@@ -145,7 +135,6 @@ CREATE TABLE Incubazione (
   CONSTRAINT FKIncubazione_Progenie FOREIGN KEY (DataParto, IDSerpente) REFERENCES Progenie (Data, IDSerpente) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- Morph (ID, Nome, Descrizione)
 CREATE TABLE Morph (
   ID INT UNSIGNED AUTO_INCREMENT,
@@ -154,7 +143,6 @@ CREATE TABLE Morph (
   PRIMARY KEY (ID)
 );
 
-
 -- Allele (Nome, Locus, Tipo)
 CREATE TABLE Allele (
   Nome VARCHAR(100) NOT NULL,
@@ -162,7 +150,6 @@ CREATE TABLE Allele (
   Tipo ENUM('Dominante', 'Codominante', 'Recessivo') NOT NULL,
   PRIMARY KEY (Nome, Locus)
 );
-
 
 -- Terrario (ID, Riscaldatore, BassaTemp, AltaTemp, Tipologia, Acquatico, Arrampicabile, Scavabile, Umidita)
 CREATE TABLE Terrario (
@@ -177,7 +164,6 @@ CREATE TABLE Terrario (
   Umidita TINYINT NOT NULL,
   PRIMARY KEY (ID)
 );
-
 
 -- Specie (NomeScientifico, NomeComune, EtaMax, Aspettativa, Alimentazione, Attivita, Difesa, Temperamento, Difficolta, Coabitazione, TempoIncubaz, ProgenieMax, ProgenieMin, Ovoviviparo, IDTerrario)
 CREATE TABLE Specie (
@@ -212,7 +198,6 @@ CREATE TABLE Specie (
   PRIMARY KEY (NomeScientifico),
   CONSTRAINT FKSpecie_IDTerrario FOREIGN KEY (IDTerrario) REFERENCES Terrario (ID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
-
 
 -- Brumazione (NomeSpecie, SettPreBrum, MeseInizio, MeseFine, TempMedia)
 CREATE TABLE Brumazione (
@@ -251,14 +236,12 @@ CREATE TABLE Brumazione (
   CONSTRAINT FKBrumazione_NomeSpecie FOREIGN KEY (NomeSpecie) REFERENCES Specie (NomeScientifico) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- SubStrato (NomeSub, Proprietà)
 CREATE TABLE Substrato (
   NomeSub VARCHAR(100),
   Proprietà VARCHAR(400) NOT NULL,
   PRIMARY KEY (NomeSub)
 );
-
 
 -- Eta (FaseEta, NomeSpecie, Lunghezza, Peso, EtaLimite, IDTerrario, DimMinTerrario, DimConsTerrario, DimTana)
 CREATE TABLE Eta (
@@ -276,7 +259,6 @@ CREATE TABLE Eta (
   CONSTRAINT FKEta_IDTerrario FOREIGN KEY (IDTerrario) REFERENCES Terrario (ID) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-
 -- Accoppiamento (IDSerpenteM, IDSerpenteF, Data)
 CREATE TABLE Accoppiamento (
   IDSerpenteM INT UNSIGNED NOT NULL,
@@ -287,7 +269,6 @@ CREATE TABLE Accoppiamento (
   CONSTRAINT FKAccoppiamento_IDSerpenteF FOREIGN KEY (IDSerpenteF) REFERENCES Serpente (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- Parentela (IDGenitore, IDFiglio)
 CREATE TABLE Parentela (
   IDGenitore INT UNSIGNED NOT NULL,
@@ -296,7 +277,6 @@ CREATE TABLE Parentela (
   CONSTRAINT FKParentela_IDGenitore FOREIGN KEY (IDGenitore) REFERENCES Serpente (ID) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FKParentela_IDFiglio FOREIGN KEY (IDFiglio) REFERENCES Serpente (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 -- PH (IDSerpente, IDMorph, Percentuale)
 CREATE TABLE PH (
@@ -308,7 +288,6 @@ CREATE TABLE PH (
   CONSTRAINT FKPH_IDMorph FOREIGN KEY (IDMorph) REFERENCES Morph (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- Aspetto (IDSerpente, IDMorph)
 CREATE TABLE Aspetto (
   IDSerpente INT UNSIGNED NOT NULL,
@@ -318,7 +297,6 @@ CREATE TABLE Aspetto (
   CONSTRAINT FKAspetto_IDMorph FOREIGN KEY (IDMorph) REFERENCES Morph (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- Composto (IDComponente, IDRisultato)
 CREATE TABLE Composto (
   IDComponente INT UNSIGNED NOT NULL,
@@ -327,7 +305,6 @@ CREATE TABLE Composto (
   CONSTRAINT FKComposto_IDComponente FOREIGN KEY (IDComponente) REFERENCES Morph (ID) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FKComposto_IDRisultato FOREIGN KEY (IDRisultato) REFERENCES Morph (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 -- Causa (IDMorph, NomeAllele, LocusAllele)
 CREATE TABLE Causa (
@@ -339,7 +316,6 @@ CREATE TABLE Causa (
   CONSTRAINT FKCausa_Allele FOREIGN KEY (NomeAllele, LocusAllele) REFERENCES Allele (Nome, Locus) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- Genetica (IDMorph, NomeSpecie, Problematiche)
 CREATE TABLE Genetica (
   IDMorph INT UNSIGNED NOT NULL,
@@ -350,7 +326,6 @@ CREATE TABLE Genetica (
   CONSTRAINT FKGenetica_NomeSpecie FOREIGN KEY (NomeSpecie) REFERENCES Specie (NomeScientifico) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 -- TerrenoBrum (NomeSpecie, NomeSubstrato)
 CREATE TABLE TerrenoBrum (
   NomeSpecie VARCHAR(100) NOT NULL,
@@ -359,7 +334,6 @@ CREATE TABLE TerrenoBrum (
   CONSTRAINT FKTerrenoBrum_NomeSpecie FOREIGN KEY (NomeSpecie) REFERENCES Specie (NomeScientifico) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT FKTerrenoBrum_NomeSubstrato FOREIGN KEY (NomeSubstrato) REFERENCES Substrato (NomeSub) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 -- Terreno (IDTerrario, NomeSubstrato)
 CREATE TABLE Terreno (
