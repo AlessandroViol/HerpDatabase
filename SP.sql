@@ -56,6 +56,8 @@ END $$ DELIMITER;
 
 -- Stored Procedure per l’aggiunta di pasti. Implementa anche l’eliminazione automatica dei record più vecchi di un anno e impedisce di
 -- inserire record multipli per lo stesso serpente nell’arco della giornata.
+DROP PROCEDURE IF EXISTS AggiungiPasto;
+
 DELIMITER $$
 CREATE PROCEDURE AggiungiPasto (
   IN dataPasto DATE,
@@ -107,6 +109,8 @@ WHERE
 END $$ DELIMITER;
 
 -- Il resto delle stored procedures implementare per l’inserimento dei dati sono banali. Se ne riporta solo alcune:
+DROP PROCEDURE IF EXISTS AggiungiTerrario;
+
 DELIMITER $$
 CREATE PROCEDURE AggiungiTerrario (
   riscaldatore enum('Tappetino', 'Lampada', 'Entrambe'),
@@ -244,6 +248,8 @@ VALUES
 END $$ DELIMITER;
 
 -- Questa stored procedure viene utilizzata per mettere in vendita un serpente effettuando prima dei controlli sulla legittimità dell’operazione.
+DROP PROCEDURE IF EXISTS MettiInVenditaSerpente;
+
 DELIMITER $$
 CREATE PROCEDURE MettiInVenditaSerpente (
   IN idSerpente INT UNSIGNED,
@@ -319,6 +325,8 @@ END $$ DELIMITER;
 
 -- Questa stored procedure viene usata per finalizzare la vendita di un animale. 
 -- Oltre a un controllo sulla correttezza dell’operazione, elimina anche i dati che a questo punto non saranno più di interesse per l’associazione.
+DROP PROCEDURE IF EXISTS VenditaSerpente;
+
 DELIMITER $$
 CREATE PROCEDURE VenditaSerpente (
   IN idSerpente INT UNSIGNED,
@@ -397,6 +405,8 @@ WHERE
 END $$ DELIMITER;
 
 -- Similmente alla stored procedure precedente, questa SP permette di registrare la morte di uno dei serpenti dell’allevamento, occupandosi anche di registrare un’ultima visita.
+DROP PROCEDURE IF EXISTS RegistraMorte;
+
 DELIMITER $$
 CREATE PROCEDURE RegistraMorte (
   IN idSerpente INT UNSIGNED,
@@ -469,6 +479,8 @@ WHERE
 END $$ DELIMITER;
 
 -- Questa stored procedure si occupa invece di identificare quali serpenti venduti hanno ormai superato l’aspettativa di vita della loro specie e ne modifica lo stato. 
+DROP PROCEDURE IF EXISTS MorteAutomaticaSerpentiVenduti;
+
 DELIMITER $$
 CREATE PROCEDURE MorteAutomaticaSerpentiVenduti () BEGIN DECLARE fine INTEGER DEFAULT 0;
 
@@ -531,6 +543,8 @@ CLOSE listaSerpenti;
 END $$ DELIMITER;
 
 -- Questa procedure si occupa di eliminare dal database i serpenti morti e che non hanno figli, ossia che non sono più di interesse all’associazione.
+DROP PROCEDURE IF EXISTS CancellazioneAutomaticaClienti;
+
 DELIMITER $$
 CREATE PROCEDURE CancellazioneAutomaticaSerpenti () BEGIN DECLARE fine INTEGER DEFAULT 0;
 
@@ -589,6 +603,8 @@ END $$ DELIMITER;
 -- Questa SP cancella i clienti i quali non hanno più serpenti in vita. 
 -- All’inizio dell’esecuzione utilizza una delle stored procedure riportate in precedenza per aggiornare gli stati dei serpenti. 
 -- A fine esecuzione, se il parametro specificato in input è TRUE, viene chiamata anche la SP precedente. 
+DROP PROCEDURE IF EXISTS CancellazioneAutomaticaClienti;
+
 DELIMITER $$
 CREATE PROCEDURE CancellazioneAutomaticaClienti (IN cancellaSerpenti BOOL) BEGIN DECLARE fine INTEGER DEFAULT 0;
 
@@ -651,6 +667,8 @@ END IF;
 END $$ DELIMITER;
 
 -- Questa stored procedure ritorna in due campi VARCHAR l’elenco dei morph e dei possible het posseduti dal serpente specificato
+DROP PROCEDURE IF EXISTS OttenimentoMorphEPH;
+
 DELIMITER $$
 CREATE PROCEDURE OttenimentoMorphEPH (
   IN idSerpenteRicerca INT UNSIGNED,
